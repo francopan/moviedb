@@ -1,0 +1,11 @@
+<p-card *ngIf="person">
+    <div class="col md:col-8 m-auto">
+        <div class="grid">
+            <app-person-photo [width]="300" [height]="450" [person]="person" [includeName]="false"></app-person-photo>
+            <div class="col-12 md:col-8 overview">
+                <h1 class="flex p-0 m-0 align-items-center">{{person.name}}</h1>
+                <div class="text-justify">{{person.biography}}</div>
+            </div>
+        </div>
+    </div>
+</p-card>

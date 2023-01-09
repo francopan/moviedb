@@ -1,0 +1,23 @@
+.backdrop {
+    background-size: cover;
+}
+
+.backdrop-tint {
+  backdrop-filter: grayscale(1) brightness(0.3);
+}
+
+.overview {
+  font-size: 14px;
+}
+
+.overview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.overview li {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0px;
+}

@@ -1,0 +1,4 @@
+<div [style.width.px]="size">
+    <p-knob [readonly]="true" [ngModel]="getVoteAverageFormatted()" [min]="0" [max]="10" [size]="size" [valueColor]="getColor()"></p-knob>
+    <span *ngIf="voteCount" class="text-600 text-xs block text-center">{{ voteCount }} votes</span>
+</div>

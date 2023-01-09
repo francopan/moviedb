@@ -1,0 +1,12 @@
+<p-autoComplete [(ngModel)]="text" [suggestions]="results" [placeholder]="'Search...'" (completeMethod)="search($event)"
+    (onSelect)="onSelect($event)">
+    <ng-template let-result pTemplate="item">
+        <div *ngIf="result.type === 'movie'">
+            {{result.value.title}}<br />
+            <span class="text-xs text-400">Movie - {{formatDate(result.value.release_date)}}
+                <span *ngIf="result.value.original_title !== result.value.title"> -
+                    {{result.value.original_title}}</span>
+            </span>
+        </div>
+    </ng-template>
+</p-autoComplete>

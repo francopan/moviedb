@@ -1,0 +1,8 @@
+<p-card *ngIf="movie">
+  <ng-template pTemplate="header">
+    <app-movie-header [movie]="movie"></app-movie-header>
+  </ng-template>
+  <div>
+    <app-movie-credit [movie]="movie"></app-movie-credit>
+  </div>
+</p-card>

@@ -1,0 +1,42 @@
+<div *ngIf="credit" class="scroller-demo">
+    <h2>Cast</h2>
+    <app-carousel [height]="230">
+        <app-person-photo [person]="cp" *ngFor="let cp of credit.cast" (clicked)="onCastClicked($event)">
+        </app-person-photo>
+    </app-carousel>
+</div>
+<div *ngIf="credit">
+    <h2>Crew</h2>
+    <p-table #dt1 [value]="credit.crew" styleClass="p-datatable-striped" [scrollable]="true" scrollHeight="400px"
+        [globalFilterFields]="['job','deparment','name']" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal(getSearchValue($event) || '', 'contains')"
+                        placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th id="job">Job <p-columnFilter type="text" field="job" display="menu"></p-columnFilter>
+                </th>
+                <th id="deparment">Department<p-columnFilter type="text" field="department" display="menu">
+                    </p-columnFilter>
+                </th>
+                <th id="name">Name<p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                </th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cp>
+            <tr>
+                <td>{{cp.job}}</td>
+                <td>{{cp.department}}</td>
+                <td>{{cp.name}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

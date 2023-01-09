@@ -1,0 +1,29 @@
+<div *ngIf="movie" class="backdrop" [ngStyle]="{'background-image': 'url(' + getBackground() + ')'}">
+    <div class="d-block h-100 backdrop-tint p-4">
+        <div class="col md:col-8 m-auto">
+            <div class="grid">
+                <app-movie-poster class="col-12 md:col" [movie]="movie"></app-movie-poster>
+                <div class="col-12 md:col-9 overview">
+                    <div class="inline-flex">
+                        <h1 class="flex p-0 m-0 align-items-center">{{movie.title}}</h1>
+                        <app-movie-status class="flex align-items-center ml-2" [status]="movie.status">
+                        </app-movie-status>
+                    </div>
+                    <div class="my-1 text-gray-400">
+                        <span>{{getFormattedRunTime(movie.runtime)}}</span> -
+                        <span>{{getReleaseDate()}}</span> -
+                        <span *ngFor="let genre of getGenres(); let last = last">{{genre}}{{ last ? '' : ', '}}</span>
+                    </div>
+                    <app-rating class="block my-2" [voteAverage]="movie.vote_average" [voteCount]="movie.vote_count">
+                    </app-rating>
+                    <ul>
+                        <li><span class="font-bold">Synopsis:</span> {{movie.overview}}</li>
+                        <li><span class="font-bold">Original Title:</span> {{movie.original_title}}</li>
+                        <li><span class="font-bold">Budget:</span> {{formatCurrency(movie.budget)}}</li>
+                        <li><span class="font-bold">Revenue:</span> {{formatCurrency(movie.revenue)}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

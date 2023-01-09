@@ -1,0 +1,12 @@
+<div class="col md:col-9 m-auto">
+    <h1 class="flex p-0 m-0 align-items-center">Popular Movies</h1>
+    
+    <div class="my-4">
+        <app-movie-poster *ngFor="let movie of movies" class="inline-block mr-2 my-2 cursor-pointer" [width]="180"
+            [height]="270" [preview]="true" [movie]="movie" (clicked)="onClickPoster($event)">
+        </app-movie-poster>
+    </div>
+
+    <p-paginator #paginator [rows]="20" [totalRecords]="totalResults" (onPageChange)="onPageChange($event)">
+    </p-paginator>
+</div>

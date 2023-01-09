@@ -1,0 +1,25 @@
+.person {
+  width: 200px;
+  background: transparent;
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+p-image ::ng-deep span > img,
+.empty, .person, .name {
+  border-radius: 8px;
+  text-overflow: ellipsis;
+}
+
+.name {
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.empty {
+  text-align: center;
+}
+
+.empty span {
+  vertical-align: middle;
+}
