@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
       req = request.clone({
         headers: request.headers.append(
           'Authorization',
-          'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzBiN2NiOGUyZmNjZTUyMzFlZTVjZDE3Y2E2M2NiMSIsInN1YiI6IjYxN2MyMDRiZDM4OGFlMDA2MTE5Y2Y5YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MlSfxdl-EDDJvj_F64TsiIlmSQ64rKouf7Orz_NVxKo'
+          'KEY'
         ),
       });
     } else {
@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
       req = request.clone({
         params: request.params.append(
           'api_key',
-          '730b7cb8e2fcce5231ee5cd17ca63cb1'
+          'KEY'
         ),
       });
     }
