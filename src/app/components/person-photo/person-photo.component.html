@@ -1,6 +1,6 @@
 <div *ngIf="person" class="person cursor-pointer inline-block p-0 mx-2 border-round" [ngStyle]="{'width': width + 'px' }"
     (click)="onClick()">
-    <p-image *ngIf="src" [src]="src" [height]="height + 'px'" [width]="width + 'px'">
+    <p-image *ngIf="src" [src]="src" [height]="height + 'px'" [width]="width + 'px'" [preview]="preview">
     </p-image>
     <div *ngIf="!src" class="empty surface-100 mb-1" [ngStyle]="{'width': width + 'px', 'height': height + 'px' }">
         &nbsp;

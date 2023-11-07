@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { api_url } from '../constants/api_url.constant';
 import { Person, PersonCredit } from '../models/person.model';
 
@@ -7,11 +7,10 @@ import { Person, PersonCredit } from '../models/person.model';
   providedIn: 'root',
 })
 export class PeopleService {
+  private _httpClient = inject(HttpClient);
   private readonly 'url' = `${api_url.apiv3}/person`;
 
-  constructor(private httpClient: HttpClient) {}
-
   public get(personId: number) {
-    return this.httpClient.get<Person>(`${this.url}/${personId}`);
+    return this._httpClient.get<Person>(`${this.url}/${personId}`);
   }
 }

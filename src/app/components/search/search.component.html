@@ -1,4 +1,4 @@
-<p-autoComplete [(ngModel)]="text" [suggestions]="results" [placeholder]="'Search...'" (completeMethod)="search($event)"
+<p-autoComplete [(ngModel)]="selection" [suggestions]="results" [placeholder]="'Search...'" (completeMethod)="search($event)"
     (onSelect)="onSelect($event)">
     <ng-template let-result pTemplate="item">
         <div *ngIf="result.type === 'movie'">

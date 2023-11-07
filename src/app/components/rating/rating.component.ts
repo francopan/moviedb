@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./rating.component.scss'],
 })
 export class RatingComponent {
-  @Input() voteAverage: number = 0;
-  @Input() voteCount: number | undefined;
-  @Input() size = 70;
+  @Input() public voteAverage: number = 0;
+  @Input() public voteCount: number | undefined;
+  @Input() public size = 70;
 
   public getVoteAverageFormatted(): number {
     return Number.parseFloat(this.voteAverage.toPrecision(2));

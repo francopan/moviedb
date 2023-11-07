@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AutoCompleteCompleteEvent, AutoCompleteOnSelectEvent } from 'primeng/autocomplete';
+import { ObjectType } from 'src/app/enums/object-type.enum';
+
 import { Movie } from 'src/app/models/movie.model';
 import { SearchResult } from 'src/app/models/search-result.model';
 import { GeneralService } from 'src/app/services/general.service';
@@ -11,25 +14,27 @@ import { Utils } from 'src/core/utils/utils';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  public text: string = '';
+  public selection: SearchResult | string | undefined = '';
   public results: SearchResult[] = [];
 
-  constructor(private generalService: GeneralService, private router: Router) {}
+  private _generalService = inject(GeneralService);
+  private _router = inject(Router);
 
-  public onSelect(selected: SearchResult): void {
-    switch (selected.type) {
-      case 'movie': {
-        this.generalService.navigateToMovie(
-          this.router,
-          (selected.value as Movie).id.toString()
+  public onSelect(selected: AutoCompleteOnSelectEvent): void {
+    const selectedValue = (selected.value as SearchResult);
+    switch (selectedValue.type) {
+      case ObjectType.Movie: {
+        this.selection = (selectedValue.value as Movie).title;
+        this._generalService.navigateToMovie(
+          this._router,
+          (selectedValue.value as Movie).id.toString()
         );
       }
     }
-    this.text = ''
   }
 
-  public search(event: any): void {
-    this.generalService.search(event.query).then((data) => {
+  public search(event: AutoCompleteCompleteEvent): void {
+    this._generalService.search(event.query).then((data) => {
       this.results = data;
     });
   }

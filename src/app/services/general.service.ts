@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom, forkJoin, map } from 'rxjs';
 import { SearchResult } from '../models/search-result.model';
@@ -8,11 +8,12 @@ import { MovieService } from './movie.service';
   providedIn: 'root',
 })
 export class GeneralService {
-  constructor(private movieService: MovieService) {}
+
+  private _movieService = inject(MovieService);
 
   public search(term: string): Promise<Array<SearchResult>> {
     return firstValueFrom(
-      forkJoin([this.movieService.searchMovie(term)]).pipe(
+      forkJoin([this._movieService.searchMovie(term)]).pipe(
         map((v) => {
           const movies = v[0].results.map((v) => {
             return { type: 'movie', value: v } as SearchResult;

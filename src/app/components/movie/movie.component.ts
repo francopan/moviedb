@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/models/movie.model';
 import { MovieService } from 'src/app/services/movie.service';
@@ -10,23 +10,20 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MovieComponent implements OnInit {
   public movie: Movie | undefined;
-  private readonly movieIdAttr = 'movieId';
-
-  constructor(
-    private activatedRouter: ActivatedRoute,
-    private movieService: MovieService
-  ) {}
+  private _activatedRoute = inject(ActivatedRoute);
+  private _movieService = inject(MovieService);
+  private readonly _movieIdAttr = 'movieId';
 
   public ngOnInit() {
-    this.activatedRouter.params.subscribe((res) => {
-      this.getMovie(res[this.movieIdAttr]);
+    this._activatedRoute.params.subscribe((res) => {
+      this.getMovie(res[this._movieIdAttr]);
     });
   }
 
  
 
   private getMovie(movieId: number) {
-    this.movieService.get(movieId).subscribe((res) => {
+    this._movieService.get(movieId).subscribe((res) => {
       this.movie = res;
     });
   }

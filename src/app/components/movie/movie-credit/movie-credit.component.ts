@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CastCredit } from 'src/app/models/cast-credit.model';
 import { MovieCredit } from 'src/app/models/movie-credit.model';
 import { Movie } from 'src/app/models/movie.model';
 import { Person, PersonCredit } from 'src/app/models/person.model';
@@ -15,12 +14,10 @@ import { MovieService } from 'src/app/services/movie.service';
 export class MovieCreditComponent {
   public credit: MovieCredit | undefined;
   private _movie: Movie | undefined;
+  private _router = inject(Router);
+  private _movieService = inject(MovieService);
+  private _generalService = inject(GeneralService);
 
-  constructor(
-    private router: Router,
-    private movieService: MovieService,
-    private generalService: GeneralService
-  ) {}
 
   @Input() public set movie(movie: Movie | undefined) {
     this._movie = movie;
@@ -36,12 +33,12 @@ export class MovieCreditComponent {
   }
 
   public onCastClicked(cast: PersonCredit | Person) {
-    this.generalService.navigateToPerson(this.router, cast.id.toString());
+    this._generalService.navigateToPerson(this._router, cast.id.toString());
   }
 
   private getCredits(): void {
-    if (this.movie) {
-      this.movieService.getCredits(this.movie.id).subscribe((res) => {
+    if (this.movie !== undefined && this.movie !== null) {
+      this._movieService.getCredits(this.movie.id).subscribe((res) => {
         res.crew.sort((a, b) =>
           a.department.toLowerCase().localeCompare(b.department.toLowerCase())
         );

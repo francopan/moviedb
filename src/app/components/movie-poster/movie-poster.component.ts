@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { api_url } from 'src/app/constants/api_url.constant';
 import { MovieImage } from 'src/app/models/movie-image.model';
 import { Movie } from 'src/app/models/movie.model';
@@ -10,24 +10,25 @@ import { MovieService } from 'src/app/services/movie.service';
   styleUrls: ['./movie-poster.component.scss'],
 })
 export class MoviePosterComponent implements OnInit {
-  @Input() movie: Movie | undefined;
-  @Input() preview: boolean = false;
-  @Output() clicked = new EventEmitter<Movie>();
+  @Input() public movie: Movie | undefined;
+  @Input() public preview: boolean = false;
+  @Output() public clicked = new EventEmitter<Movie>();
 
   public poster: MovieImage | undefined;
   public loading: boolean = true;
 
-  private defaultWidth = '300';
-  private defaultHeight = 'auto';
+  private _defaultWidth = '300';
+  private _defaultHeight = 'auto';
+  private _movieService = inject(MovieService);
 
-  constructor(private movieService: MovieService) {}
+
 
   @Input() set width(w: number) {
-    this.defaultWidth = w.toString();
+    this._defaultWidth = w.toString();
   }
 
   @Input() set height(h: number) {
-    this.defaultHeight = h.toString();
+    this._defaultHeight = h.toString();
   }
 
   public ngOnInit(): void {
@@ -44,14 +45,14 @@ export class MoviePosterComponent implements OnInit {
     if (this.poster && !this.loading && original) {
       return this.poster.width.toString();
     }
-    return this.defaultWidth;
+    return this._defaultWidth;
   }
 
   public getHeight(original = false): string {
     if (this.poster && !this.loading) {
-      return original ? this.poster.height.toString() : this.defaultHeight;
+      return original ? this.poster.height.toString() : this._defaultHeight;
     }
-    return this.defaultHeight;
+    return this._defaultHeight;
   }
 
   public getImageUrl(): string {
@@ -73,7 +74,7 @@ export class MoviePosterComponent implements OnInit {
       return;
     }
     if (this.movie?.id) {
-      this.movieService.getImages(this.movie.id).subscribe((res) => {
+      this._movieService.getImages(this.movie.id).subscribe((res) => {
         const posters = res.posters || [];
         if (posters.length > 0) {
           posters.sort(this.sortByRating());

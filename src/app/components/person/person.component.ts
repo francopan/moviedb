@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Person, PersonCredit } from 'src/app/models/person.model';
+import { Person } from 'src/app/models/person.model';
 import { PeopleService } from 'src/app/services/people.service';
 
 @Component({
@@ -10,21 +10,19 @@ import { PeopleService } from 'src/app/services/people.service';
 })
 export class PersonComponent {
   public person: Person | undefined;
-  private readonly personIdAttr = 'personId';
-
-  constructor(
-    private activatedRouter: ActivatedRoute,
-    private peopleService: PeopleService
-  ) {}
+  public preview = false;
+  private _activatedRouter = inject(ActivatedRoute);
+  private _peopleService = inject(PeopleService);
+  private readonly _personIdAttr = 'personId';
 
   public ngOnInit() {
-    this.activatedRouter.params.subscribe((res) => {
-      this.getPerson(res[this.personIdAttr]);
+    this._activatedRouter.params.subscribe((res) => {
+      this.getPerson(res[this._personIdAttr]);
     });
   }
 
   private getPerson(personid: number) {
-    this.peopleService.get(personid).subscribe((res) => {
+    this._peopleService.get(personid).subscribe((res) => {
       this.person = res;
     });
   }

@@ -1,4 +1,4 @@
-<p-image *ngIf="!loading" [src]="getImageUrl()" [preview]="preview" alt="Movie Poster" [width]="getWidth()"
+<p-image *ngIf="!loading" [src]="getImageUrl()" alt="Movie Poster" [width]="getWidth()"
     [height]="getHeight()" (click)="onClick()">
     <ng-template pTemplate="indicator">
         <div class="block text-center">{{movie?.title}}</div>

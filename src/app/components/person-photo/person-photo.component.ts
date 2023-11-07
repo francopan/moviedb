@@ -11,9 +11,9 @@ export class PersonPhotoComponent {
   @Input() includeName = true;
   @Input() public width = 138;
   @Input() public height = 175;
-  @Output() clicked = new EventEmitter<PersonCredit | Person>();
+  @Input() public preview = true
+  @Output() public clicked = new EventEmitter<PersonCredit | Person>();
   public src: string | undefined;
-
   private _person: PersonCredit | Person | undefined;
 
   @Input() set person(person: PersonCredit | Person | undefined) {
